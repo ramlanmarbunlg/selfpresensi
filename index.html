@@ -69,7 +69,7 @@ display:none;
 <div class="presensi-card">
 <div class="presensi-header">
 <div style="font-size:50px"><i class="fas fa-church"></i></div>
-<div class="presensi-title">GPdI Sukses Medan</div>
+<div class="presensi-title" id="churchName">Memuat...</div>
 <div>Presensi Mandiri Jemaat</div>
 </div>
 
@@ -104,6 +104,33 @@ let html5QrCode=null;
 let isScanning=false;
 let lastScanned='';
 let currentFacing="environment";
+
+/* ===============================
+   LOAD NAMA GEREJA OTOMATIS
+=================================*/
+document.addEventListener("DOMContentLoaded", function() {
+  loadChurchName();
+});
+
+function loadChurchName(){
+  fetch("https://selfpresensi.ramlanmarbungaol90.workers.dev?action=getChurchName")
+  .then(res => res.json())
+  .then(data => {
+    if(data.nama_gereja){
+      document.getElementById("churchName").textContent = data.nama_gereja;
+    } else {
+      document.getElementById("churchName").textContent = "PASTORA CMS";
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("churchName").textContent = "PASTORA CMS";
+  });
+}
+
+/* ===============================
+   QR SCANNER
+=================================*/
 
 function initQRScanner(){
 if(html5QrCode && isScanning){
