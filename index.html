@@ -186,7 +186,10 @@ showResult('info','Memproses...');
 fetch("https://selfpresensi.ramlanmarbungaol90.workers.dev",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({qrData:qrData})
+body:JSON.stringify({
+  qrData: qrData,
+  token: "PASTORA_2026_SECURE"
+})
 })
 .then(res=>res.json())
 .then(response=>{
