@@ -37,7 +37,7 @@ text-align:center;
 }
 .presensi-title{font-size:22px;font-weight:700;}
 
-/* 🔥 TAMBAHAN LOGO (tidak ganggu layout lama) */
+/* 🔥 TAMBAHAN LOGO  */
 .church-logo{
 width:70px;
 height:70px;
@@ -79,7 +79,10 @@ display:none;
 <div class="presensi-header">
 
 <!-- 🔥 LOGO BARU -->
-<img id="churchLogo" class="church-logo" src="https://img.icons8.com/color/48/church.png">
+<img id="churchLogo" class="logo" style="display:none;">
+<div id="fallbackIcon" style="font-size:50px">
+  <i class="fas fa-church"></i>
+</div>
 <div class="presensi-title" id="churchName">Memuat...</div>
 <div>Presensi Mandiri Jemaat</div>
 
@@ -143,8 +146,13 @@ function loadChurchName(){
 
     // 🔥 Logo gereja
     if(data.logo_url){
-      document.getElementById("churchLogo").src = data.logo_url;
-    }
+  const logo = document.getElementById("churchLogo");
+  const fallback = document.getElementById("fallbackIcon");
+
+  logo.src = data.logo_url;
+  logo.style.display = "block";
+  fallback.style.display = "none";
+}
 
   })
   .catch(err => {
